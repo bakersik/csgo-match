@@ -1,17 +1,27 @@
 <% layout('layouts/boilerplate') %>
-    <h1>
-        <%= tournament.name %>
-    </h1>
-    <h2>
-        <%= tournament.description %>
-    </h2>
-    <h3>
-        <%= tournament.prize %>
-    </h3>
-    <p>
-    <form action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
-    </p>
-    <p><a href="/tournaments/<%= tournament._id %>/edit">Edit</a></p>
-    <a href="/tournaments">All Tournaments</a>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card"">
+            <div class=" card-body">
+                <h5 class="card-title">
+                    <%= tournament.name %>
+                </h5>
+                <p class="card-text">
+                    <%= tournament.description %>
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Prize: <%= tournament.prize %>
+                </li>
+            </ul>
+            <div class="card-body text-center">
+                <a class="btn btn-primary" href="/tournaments/<%= tournament._id %>/edit" class="card-link">Edit</a>
+                <form action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
+                    <button class=" btn btn-danger">Delete</button>
+                </form>
+                <a class="btn btn-info" href="/tournaments">All Tournaments</a>
+            </div>
+        </div>
+    </div>
+    </div>

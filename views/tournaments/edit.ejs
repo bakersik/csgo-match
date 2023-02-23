@@ -1,14 +1,20 @@
 <% layout('layouts/boilerplate') %>
-    <h1>Edit Tournament</h1>
-    <form action="/tournaments/<%= tournament._id %>?_method=PUT" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="tournament[name]" value="<%= tournament.name %>">
+    <div class="row">
+        <h1 class="text-center">Edit Tournament</h1>
+        <div class="col-6 offset-3">
+            <form action="/tournaments/<%= tournament._id %>?_method=PUT" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" type="text" id="name" name="tournament[name]"
+                        value="<%= tournament.name %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="tournament[description]"
+                        value="<%= tournament.description %>"></textarea>
+                </div>
+                <button class="btn col-12 btn-success">Save Tournament</button>
+            </form>
+            <a class="btn btn-info col-12 mt-3" href="/tournaments/<%= tournament._id %>">Back to tournaments</a>
         </div>
-        <div>
-            <label for="description">Description</label>
-            <input type="text" id="description" name="tournament[description]" value="<%= tournament.description %>">
-        </div>
-        <button>Save Tournament</button>
-    </form>
-    <a href="/tournaments/<%= tournament._id %>">Back to Tournament</a>
+    </div>

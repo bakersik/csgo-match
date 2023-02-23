@@ -1,14 +1,18 @@
 <% layout('layouts/boilerplate') %>
-    <h1>All Tournaments</h1>
+    <h1 class="m-5">All Tournaments</h1>
     <div>
-        <a href="/tournaments/new">Add Tournament</a>
+        <a class="m-5" href="/tournaments/new">Add Tournament</a>
     </div>
-    <ul>
-        <% for(let tournament of tournaments) {%>
-            <li>
-                <a href="/tournaments/<%= tournament._id %>">
+    <% for(let tournament of tournaments) {%>
+        <div class="card m-5">
+            <div class="card-body">
+                <h5 class="card-title">
                     <%= tournament.name %>
-                </a>
-            </li>
-            <% } %>
-    </ul>
+                </h5>
+                <p class="card-text">
+                    <%= tournament.description %>
+                </p>
+                <a href="/tournaments/<%= tournament._id %>" class="btn btn-primary">View details</a>
+            </div>
+        </div>
+        <% } %>
