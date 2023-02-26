@@ -2,16 +2,28 @@
     <div class="row">
         <h1 class="text-center">Edit Tournament</h1>
         <div class="col-6 offset-3">
-            <form action="/tournaments/<%= tournament._id %>?_method=PUT" method="POST">
+            <form action="/tournaments/<%= tournament._id %>?_method=PUT" method="POST" novalidate
+                class="validated-form">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
                     <input class="form-control" type="text" id="name" name="tournament[name]"
-                        value="<%= tournament.name %>">
+                        value="<%= tournament.name %>" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="description" name="tournament[description]"
-                        value="<%= tournament.description %>"></textarea>
+                        required><%= tournament.description %></textarea>
+                </div>
+                <div class="mb-3">
+                    <p>Current date of start: <%= tournament.start_at.toLocaleDateString() %>
+                    </p>
+                    <label class="form-label" for="start_at">Starting at</label>
+                    <input class="form-control" type="date" id="start_at" name="tournament[start_at]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="prize">Prize</label>
+                    <input class="form-control" type="text" id="prize" name="tournament[prize]"
+                        value="<%= tournament.prize %>" required>
                 </div>
                 <button class="btn col-12 btn-success">Save Tournament</button>
             </form>

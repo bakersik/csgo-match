@@ -1,27 +1,59 @@
 <% layout('layouts/boilerplate') %>
     <div class="row">
-        <div class="col-6 offset-3">
-            <div class="card"">
-            <div class=" card-body">
-                <h5 class="card-title">
-                    <%= tournament.name %>
-                </h5>
-                <p class="card-text">
-                    <%= tournament.description %>
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    Prize: <%= tournament.prize %>
-                </li>
-            </ul>
-            <div class="card-body text-center">
-                <a class="btn btn-primary" href="/tournaments/<%= tournament._id %>/edit" class="card-link">Edit</a>
-                <form action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
-                    <button class=" btn btn-danger">Delete</button>
-                </form>
-                <a class="btn btn-info" href="/tournaments">All Tournaments</a>
+        <div class="col-6">
+            <div class="card">
+                <div class=" card-body">
+                    <h5 class="card-title">
+                        <%= tournament.name %>
+                    </h5>
+                    <p class="card-text">
+                        <%= tournament.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Starting at: <%= tournament.start_at.toLocaleDateString() %>
+                    </li>
+                    <li class="list-group-item">
+                        Prize: <%= tournament.prize %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a class="card-link btn btn-primary" href="/tournaments/<%= tournament._id %>/edit">Edit</a>
+                    <form class="d-inline" action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
+                        <button class=" btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <a href="/tournaments">All Tournaments</a>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="col-6">
+            <h2>Add a team</h2>
+            <form action="/tournaments/<%=tournament._id%>/teams" method="POST" class="mb-3 validated-form" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" type="text" name="team[name]" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="avatar_url">Avatar Url</label>
+                    <input class="form-control" type="text" name="team[avatar_url]" id="avatar_url" required>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+            <% for(let team of tournament.teams) { %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= team.name %>
+                        </h5>
+                        <form action="/tournaments/<%= tournament._id %>/teams/<%= team._id %>?_method=DELETE"
+                            method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+        </div>
     </div>

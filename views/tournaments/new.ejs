@@ -2,15 +2,24 @@
     <div class="row">
         <h1 class="text-center">New Tournament</h1>
         <div class="col-6 offset-3">
-            <form action="/tournaments" method="POST">
+            <form action="/tournaments" method="POST" novalidate class="validated-form">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" id="name" name="tournament[name]">
+                    <input class="form-control" type="text" id="name" name="tournament[name]" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" id="description"
-                        name="tournament[description]"></textarea>
+                    <textarea class="form-control" type="text" id="description" name="tournament[description]"
+                        required></textarea>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="start_at">Starting at:</label>
+                    <input class="form-control" type="date" id="start_at" name="tournament[start_at]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="prize">Prize:</label>
+                    <input class="form-control" type="text" id="prize" name="tournament[prize]" required>
                 </div>
                 <button class="btn col-12 btn-success">Add Tournament</button>
             </form>
