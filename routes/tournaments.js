@@ -27,11 +27,16 @@ router.get('/new', (req, res) => {
 router.post('/', validateTournament, catchAsync(async (req, res, next) => {
     const tournament = new Tournament(req.body.tournament)
     await tournament.save()
+    req.flash('success', 'Successfully made a new tournament!')
     res.redirect(`/tournaments/${tournament._id}`)
 }))
 
 router.get('/:id', catchAsync(async (req, res) => {
     const tournament = await Tournament.findById(req.params.id).populate('teams')
+    if (!tournament) {
+        req.flash('error', 'Cannot find that tournament!')
+        res.redirect('/tournaments')
+    }
     res.render('tournaments/show', { tournament })
 }))
 
@@ -43,6 +48,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
 router.put('/:id', validateTournament, catchAsync(async (req, res) => {
     const { id } = req.params
     const tournament = await Tournament.findByIdAndUpdate(id, { ...req.body.tournament })
+    req.flash('success', 'Successfully updated tournament!')
     res.redirect(`/tournaments/${tournament._id}`)
 }))
 
