@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const Tournament = require('../models/tournament')
-const { tournamentSchema, teamSchema } = require('../schemas')
 const catchAsync = require('../utils/catchAsync')
 const ExpressError = require('../utils/ExpressError')
+const { isLoggedIn } = require('../middleware')
+const { tournamentSchema, teamSchema } = require('../schemas')
+const Tournament = require('../models/tournament')
 
 const validateTournament = (req, res, next) => {
     const { error } = tournamentSchema.validate(req.body)
@@ -20,11 +21,11 @@ router.get('/', catchAsync(async (req, res) => {
     res.render('tournaments/index', { tournaments })
 }))
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('tournaments/new')
 })
 
-router.post('/', validateTournament, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, validateTournament, catchAsync(async (req, res, next) => {
     const tournament = new Tournament(req.body.tournament)
     await tournament.save()
     req.flash('success', 'Successfully made a new tournament!')
@@ -40,21 +41,22 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('tournaments/show', { tournament })
 }))
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const tournament = await Tournament.findById(req.params.id)
     res.render('tournaments/edit', { tournament })
 }))
 
-router.put('/:id', validateTournament, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateTournament, catchAsync(async (req, res) => {
     const { id } = req.params
     const tournament = await Tournament.findByIdAndUpdate(id, { ...req.body.tournament })
     req.flash('success', 'Successfully updated tournament!')
     res.redirect(`/tournaments/${tournament._id}`)
 }))
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params
     await Tournament.findByIdAndDelete(id)
+    req.flash('success', 'Successfully deleted tournament')
     res.redirect('/tournaments')
 }))
 
