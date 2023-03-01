@@ -17,43 +17,55 @@
                     <li class="list-group-item">
                         Prize: <%= tournament.prize %>
                     </li>
+                    <li class="list-group-item">
+                        Owner: <%= tournament.owner.username %>
+                    </li>
                 </ul>
-                <div class="card-body">
-                    <a class="card-link btn btn-primary" href="/tournaments/<%= tournament._id %>/edit">Edit</a>
-                    <form class="d-inline" action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
-                        <button class=" btn btn-danger">Delete</button>
-                    </form>
-                </div>
-                <div class="card-footer text-muted">
-                    <a href="/tournaments">All Tournaments</a>
-                </div>
+                <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+                    <div class="card-body">
+                        <a class="card-link btn btn-primary" href="/tournaments/<%= tournament._id %>/edit">Edit</a>
+                        <form class="d-inline" action="/tournaments/<%= tournament._id %>?_method=DELETE" method="POST">
+                            <button class=" btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <div class="card-footer text-muted">
+                            <a href="/tournaments">All Tournaments</a>
+                        </div>
             </div>
         </div>
         <div class="col-6">
-            <h2>Add a team</h2>
-            <form action="/tournaments/<%=tournament._id%>/teams" method="POST" class="mb-3 validated-form" novalidate>
-                <div class="mb-3">
-                    <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" name="team[name]" id="name" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="avatar_url">Avatar Url</label>
-                    <input class="form-control" type="text" name="team[avatar_url]" id="avatar_url" required>
-                </div>
-                <button class="btn btn-success">Submit</button>
-            </form>
-            <% for(let team of tournament.teams) { %>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%= team.name %>
-                        </h5>
-                        <form action="/tournaments/<%= tournament._id %>/teams/<%= team._id %>?_method=DELETE"
-                            method="POST">
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+            <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+                <h2>Add a team</h2>
+                <form action="/tournaments/<%=tournament._id%>/teams" method="POST" class="mb-3 validated-form"
+                    novalidate>
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name</label>
+                        <input class="form-control" type="text" name="team[name]" id="name" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="avatar_url">Avatar Url</label>
+                        <input class="form-control" type="text" name="team[avatar_url]" id="avatar_url" required>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
                 <% } %>
+                    <h2>Teams</h2>
+                    <% for(let team of tournament.teams) { %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= team.name %>
+                                </h5>
+                                <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+                                    <form
+                                        action="/tournaments/<%= tournament._id %>/teams/<%= team._id %>?_method=DELETE"
+                                        method="POST">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% } %>
         </div>
     </div>

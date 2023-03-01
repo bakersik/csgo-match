@@ -7,6 +7,10 @@ const TournamentSchema = new Schema({
     description: String,
     start_at: Date,
     prize: Number,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     teams: [
         {
             type: Schema.Types.ObjectId,
