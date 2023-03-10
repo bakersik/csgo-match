@@ -12,7 +12,9 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        Starting at: <%= tournament.start_at.toLocaleDateString() %>
+                        Starting on
+                        <%= tournament.start_at.toLocaleDateString() %>, at <%= tournament.start_at.toLocaleTimeString()
+                                %>
                     </li>
                     <li class="list-group-item">
                         Prize: <%= tournament.prize %>
