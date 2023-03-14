@@ -33,4 +33,12 @@
                                     </li>
                                     <% } %>
             </ul>
-            <% } %>
+            <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+                <div class="card-body">
+                    <form action="/tournaments/<%= tournament._id %>/matches/<%= match._id %>?_method=DELETE"
+                        method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+                <% } %>
+                    <% } %>

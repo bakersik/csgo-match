@@ -12,4 +12,6 @@ router.get('/new', isLoggedIn, isOwner, catchAsync(matches.renderNewForm))
 
 router.post('/new', catchAsync(matches.createMatch))
 
+router.delete('/:matchId', isLoggedIn, isOwner, catchAsync(matches.deleteMatch))
+
 module.exports = router
