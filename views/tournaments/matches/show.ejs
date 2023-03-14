@@ -1,2 +1,36 @@
 <% layout('layouts/boilerplate') %>
-    <h1>Matches</h1>
+    <div class="col-6">
+        <h1>Matches</h1>
+        <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+            <a class="btn btn-success m-5" href="/tournaments/<%=tournament._id%>/matches/new">Add a new match</a>
+            <% } %>
+    </div>
+    <% for(let match of tournament.matches) { %>
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Starts at <%= match.start_at.toLocaleDateString() %>, <%= match.start_at.toLocaleTimeString()%>
+                </li>
+                <li class="list-group-item">
+                    <%= match.team1 %>
+                </li>
+                <li class="list-group-item">
+                    <%= match.team2 %>
+                </li>
+                <% if(match.team1_score) {%>
+                    <li class="list-group-item">
+                        Team 1 Score: <%= match.team1_score %>
+                    </li>
+                    <% } %>
+                        <% if(match.team2_score) {%>
+                            <li class="list-group-item">
+                                Team 2 Score: <%= match.team2_score %>
+                            </li>
+                            <% } %>
+                                <% if(match.winner) {%>
+                                    <li class="list-group-item">
+                                        Winner: <%= match.winner %>
+                                    </li>
+                                    <% } %>
+            </ul>
+            <% } %>

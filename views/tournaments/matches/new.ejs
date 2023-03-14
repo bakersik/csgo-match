@@ -1,2 +1,23 @@
 <% layout('layouts/boilerplate') %>
     <h1>new match</h1>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h2>Add a match</h2>
+            <form action="/tournaments/<%=tournament._id%>/matches/new" method="POST" class="mb-3 validated-form"
+                novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="name">start_at</label>
+                    <input class="form-control" type="datetime-local" name="match[start_at]" id="start_at" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="team1">Team 1</label>
+                    <input class="form-control" type="text" name="match[team1]" id="team1">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="team2">Team 2</label>
+                    <input class="form-control" type="text" name="match[team2]" id="team2">
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>

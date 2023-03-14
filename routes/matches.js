@@ -8,6 +8,8 @@ const catchAsync = require('../utils/catchAsync')
 
 router.get('/', catchAsync(matches.showMatches))
 
-router.get('/new', catchAsync(matches.renderNewForm))
+router.get('/new', isLoggedIn, isOwner, catchAsync(matches.renderNewForm))
+
+router.post('/new', catchAsync(matches.createMatch))
 
 module.exports = router
