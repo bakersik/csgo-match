@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h2>Add a team</h2>
+            <form action="/tournaments/<%=tournament._id%>/teams/new" method="POST" class="mb-3 validated-form"
+                novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" type="text" name="team[name]" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="avatar_url">Avatar Url</label>
+                    <input class="form-control" type="text" name="team[avatar_url]" id="avatar_url">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="steamgroup_url">Steam Group Url</label>
+                    <input class="form-control" type="text" name="team[steamgroup_url]" id="steamgroup_url">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <input class="form-control" type="text" name="team[description]" id="description">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="member1">Member1 Nickname</label>
+                    <input class="form-control" type="text" name="team[member1]" id="member1">
+                    <label class="form-label" for="member2">Member2 Nickname</label>
+                    <input class="form-control" type="text" name="team[member2]" id="member2">
+                    <label class="form-label" for="member3">Member3 Nickname</label>
+                    <input class="form-control" type="text" name="team[member3]" id="member3">
+                    <label class="form-label" for="member4">Member4 Nickname</label>
+                    <input class="form-control" type="text" name="team[member4]" id="member4">
+                    <label class="form-label" for="member5">Member5 Nickname</label>
+                    <input class="form-control" type="text" name="team[member5]" id="member5">
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>

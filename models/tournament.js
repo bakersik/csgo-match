@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
 const Team = require('./team')
+const Match = require('./match')
 const Schema = mongoose.Schema
 
 const TournamentSchema = new Schema({
     name: String,
     description: String,
     start_at: Date,
+    end_at: Date,
     prize: Number,
     owner: {
         type: Schema.Types.ObjectId,
@@ -15,6 +17,12 @@ const TournamentSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: 'Team'
+        }
+    ],
+    matches: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Match'
         }
     ]
 })

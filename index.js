@@ -13,6 +13,7 @@ const User = require('./models/user')
 const userRoutes = require('./routes/users')
 const tournamentRoutes = require('./routes/tournaments')
 const teamRoutes = require('./routes/teams')
+const matchRoutes = require('./routes/matches')
 
 mongoose.set('strictQuery', false)
 mongoose.connect('mongodb://localhost:27017/csgo-match', { useNewUrlParser: true })
@@ -63,6 +64,8 @@ app.use((req, res, next) => {
 app.use('/', userRoutes)
 app.use('/tournaments', tournamentRoutes)
 app.use('/tournaments/:id/teams', teamRoutes)
+app.use('/tournaments/:id/matches', matchRoutes)
+
 
 
 app.get('/', (req, res) => {

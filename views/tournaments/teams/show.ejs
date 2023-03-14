@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="col-6">
+        <h1>Signed up teams</h1>
+        <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+    </div>
+    <a class="btn btn-success m-5" href="/tournaments/<%=tournament._id%>/teams/new">Add a new Team</a>
+    </div>
+    <% } %>
+        <% for(let team of tournament.teams) { %>
+            <div class="card mb-3">
+                <img class="card-img-top" style="width: 10rem"
+                    src="https://cdn.hejto.pl/uploads/posts/images/1200x900/820ca4aaf678e691a223dab1416a34c2.png"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <%= team.name %>
+                    </h3>
+                    <p class="card-text">
+                        <%= team.description%>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <% if(team.steamgroup_url) {%>
+                        <li class="list-group-item">
+                            <%= team.steamgroup_url %>
+                        </li>
+                        <% } %>
+                            <% if(team.matches_won) {%>
+                                <li class="list-group-item">Matches won: <%= team.matches_won %>
+                                </li>
+                                <% } %>
+                                    <% if(team.matches_lost) {%>
+                                        <li class="list-group-item">Matches lost: <%= team.matches_lost %>
+                                        </li>
+                                        <% } %>
+                </ul>
+                <div class="card-body">
+                    <% if( currentUser && tournament.owner.equals(currentUser._id)) {%>
+                        <form action="/tournaments/<%= tournament._id %>/teams/<%= team._id %>?_method=DELETE"
+                            method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                        <% } %>
+                </div>
+                <div class="card-header">
+                    Team Members Nicknames
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <%= team.member1 %>
+                    </li>
+                    <li class="list-group-item">
+                        <%= team.member2 %>
+                    </li>
+                    <li class="list-group-item">
+                        <%= team.member3 %>
+                    </li>
+                    <li class="list-group-item">
+                        <%= team.member4 %>
+                    </li>
+                    <li class="list-group-item">
+                        <%= team.member5 %>
+                    </li>
+                </ul>
+            </div>
+            <% } %>
+                </div>

@@ -1,6 +1,16 @@
 const Tournament = require('../models/tournament')
 const Team = require('../models/team')
 
+module.exports.showTeams = async (req, res) => {
+    const tournament = await Tournament.findById(req.params.id).populate('teams')
+    res.render('tournaments/teams/show', { tournament })
+}
+
+module.exports.renderNewForm = async (req, res) => {
+    const tournament = await Tournament.findById(req.params.id).populate('teams')
+    res.render('tournaments/teams/new', { tournament })
+}
+
 module.exports.createTeam = async (req, res) => {
     const tournament = await Tournament.findById(req.params.id)
     const team = new Team(req.body.team)
@@ -8,7 +18,7 @@ module.exports.createTeam = async (req, res) => {
     await team.save()
     await tournament.save()
     req.flash('success', 'Created new team!')
-    res.redirect(`/tournaments/${tournament._id}`)
+    res.redirect(`/tournaments/${tournament._id}/teams`)
 }
 
 module.exports.deleteTeam = async (req, res) => {
@@ -16,5 +26,5 @@ module.exports.deleteTeam = async (req, res) => {
     await Tournament.findByIdAndUpdate(id, { $pull: { teams: teamId } })
     await Team.findByIdAndDelete(teamId)
     req.flash('success', 'Successfully deleted team!')
-    res.redirect(`/tournaments/${id}`)
+    res.redirect(`/tournaments/${id}/teams`)
 }
