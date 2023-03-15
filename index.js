@@ -20,9 +20,10 @@ const userRoutes = require('./routes/users')
 const tournamentRoutes = require('./routes/tournaments')
 const teamRoutes = require('./routes/teams')
 const matchRoutes = require('./routes/matches')
-
+const dbUrl = process.env.DB_URL
 mongoose.set('strictQuery', false)
-mongoose.connect('mongodb://localhost:27017/csgo-match', { useNewUrlParser: true })
+//'mongodb://localhost:27017/csgo-match'
+mongoose.connect(dbUrl, { useNewUrlParser: true })
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
